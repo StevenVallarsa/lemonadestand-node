@@ -1,0 +1,12 @@
+{
+  "total":0.935,
+  "lemonades":[
+    {"lemonJuice":"1",
+    "water":"1",
+    "sugar":"1",
+    "iceCubes":"1",
+    "price":0.935}
+    ],
+    "customer":{"name":"A","phoneNumber":1},
+    "lemonadeStand":{"name":"Steve's Lemonade"}
+  }

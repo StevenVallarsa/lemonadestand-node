@@ -1,9 +1,26 @@
+import fs from "fs";
+
 export const calculateLemonadePrice = lemonade => {
-  return lemonade.lemonJuice * 0.25 + lemonade.sugar * 0.125 + lemonade.water * 0.01 + lemonade.iceCubes * 0.05;
+  const cost =
+    lemonade.lemonJuice * 0.25 + lemonade.sugar * 0.125 + lemonade.water * 0.01 + lemonade.iceCubes * 0.05 + 0.5;
+  lemonade.price = cost;
+  return cost;
 };
 
 export const calculateOrderTotal = ({ lemonades }) => {
   return lemonades.reduce((a, b) => a + calculateLemonadePrice(b), 0);
+};
+
+export const writeFileSync = (fileName, order) => {
+  fs.writeFileSync(fileName, JSON.stringify(order));
+};
+
+export const readAllFiles = dirName => {
+  const orders = [];
+  for (let name of fs.readdirSync(dirName)) {
+    orders.push(JSON.parse(fs.readFileSync(dirName + "/" + name)));
+  }
+  return orders;
 };
 
 // TO TEST FUNCTION
