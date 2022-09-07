@@ -3,16 +3,6 @@ import { calculateOrderTotal, writeFileSync, readAllFiles } from "./lib";
 
 const vorpal = Vorpal();
 
-vorpal.command("hello <name> [phone]", "Prints hello to console").action(function (args, callback) {
-  this.log(`Hello ${args.name}, I'll call you at ${args.phone || "705-524-2486"}.`);
-  callback();
-});
-
-vorpal.command("goodbye", "Prints goodbye to console").action(function (args, callback) {
-  this.log("Goodbye World!");
-  callback();
-});
-
 vorpal
   .command("createOrder <name> <phoneNumber>", "Create an order and save it as a JSON file ")
   .action(function (args, callback) {
