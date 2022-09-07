@@ -23,6 +23,30 @@ export const readAllFiles = dirName => {
   return orders;
 };
 
+export const buildQuestionArray = (originalArray, i) => [
+  ...originalArray,
+  {
+    type: "number",
+    name: "lemonJuice" + i,
+    message: `How much lemon juice for #${i}? `,
+  },
+  {
+    type: "number",
+    name: "water" + i,
+    message: `How much water for #${i}? `,
+  },
+  {
+    type: "number",
+    name: "sugar" + i,
+    message: `How much sugar for #${i}? `,
+  },
+  {
+    type: "number",
+    name: "iceCubes" + i,
+    message: `How many ice cubes for #${i}? `,
+  },
+];
+
 // TO TEST FUNCTION
 // const order = {
 //   total: 5.0,

@@ -1,5 +1,5 @@
 import Vorpal from "vorpal";
-import { calculateOrderTotal, writeFileSync, readAllFiles } from "./lib";
+import { calculateOrderTotal, writeFileSync, readAllFiles, buildQuestionArray } from "./lib";
 
 const vorpal = Vorpal();
 
@@ -25,31 +25,11 @@ vorpal
         message: "How many lemonades do you want to order? ",
       },
       ({ numLemonades }) => {
-        const questions = [];
+        let questions = [];
         for (let i = 1; i <= Number.parseInt(numLemonades); i++) {
-          questions.push({
-            type: "number",
-            name: "lemonJuice" + i,
-            message: `How much lemon juice for #${i}? `,
-          });
-          questions.push({
-            type: "number",
-            name: "water" + i,
-            message: `How much water for #${i}? `,
-          });
-          questions.push({
-            type: "number",
-            name: "sugar" + i,
-            message: `How much sugar for #${i}? `,
-          });
-          questions.push({
-            type: "number",
-            name: "iceCubes" + i,
-            message: `How many ice cubes for #${i}? `,
-          });
+          questions = buildQuestionArray(questions, i);
         }
         this.prompt(questions, response => {
-          e;
           this.log(Number.parseInt(numLemonades));
           // Create lemonade object for each lemonade in order
           for (let i = 1; i <= Number.parseInt(numLemonades); i++) {
@@ -75,20 +55,14 @@ vorpal
   .action(function ({ lemonadeStand }, callback) {
     const orders = readAllFiles(lemonadeStand);
     this.log(`There are ${orders.length} lemonade orders`);
-    // for (let i = 0; i < orders.length; i++) {
-    //   this.log(`Order #${i + 1}`);
-    //   this.log(`Price: ${orders[i].total}`);
-
-    //   this.log(`Lemonades: ${orders[i].lemonades}`);
-    // }
     let count = 1;
     for (let order of orders) {
       this.log(`ORDER # ${count}`);
       count++;
+      this.log(`CUSTOMER: ${order.customer.name}`);
       this.log(`TOTAL: ${order.total}`);
       this.log(`LEMONADES:`);
       this.log(order.lemonades);
-      this.log(`CUSTOMER: ${order.customer.name}`);
       this.log("-+-+-+-+-+-+-+-+");
     }
     callback();
